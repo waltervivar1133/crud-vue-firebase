@@ -1,7 +1,7 @@
 <template >
   <div id="app" class="container">
     <div id="nav">
-      <router-link to="/inicio">Inicio</router-link>
+      <router-link to="/">Inicio</router-link>
     </div>
     <div class="container-logo">
       <img alt="Vue logo" src="./assets/logo.png" />

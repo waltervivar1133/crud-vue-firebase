@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Inicio</h2>
+    <h2>List task</h2>
     <router-link to="/agregar">
       <button class="btn btn-success btn-block">Agregar</button>
       
