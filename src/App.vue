@@ -1,9 +1,12 @@
-<template>
-  <div id="app">
+<template >
+  <div id="app" class="container">
     <div id="nav">
       <router-link to="/inicio">Inicio</router-link>
     </div>
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <div class="container-logo">
+      <img alt="Vue logo" src="./assets/logo.png" />
+    </div>
+    
     <router-view />
   </div>
 </template>
@@ -13,12 +16,12 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
+  text-align: center;
 }
 
 #nav a {
@@ -28,5 +31,10 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.container-logo{
+  display: flex;
+  justify-content: center;
 }
 </style>

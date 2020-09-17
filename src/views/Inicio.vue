@@ -2,16 +2,22 @@
   <div>
     <h2>Inicio</h2>
     <router-link to="/agregar">
-      <button>Agregar</button>
+      <button class="btn btn-success btn-block">Agregar</button>
+      
     </router-link>
     
-    <ul>
-      <li v-for="(item, index) in tareas" :key="index">
-        {{item.nombre}} ---
-        {{item.id}}
-        <router-link :to="{name : 'Editar' , params :{id : item.id}}">
-          <button>Editar</button>
+    <ul class="list-group mt-5">
+      <li v-for="(item, index) in tareas" :key="index"
+      class="list-group-item">
+        Nombre de Tarea : <span class="badge badge-primary badge-pill">{{item.nombre}}</span>
+        <div class="float-right">
+           <router-link :to="{name : 'Editar' , params :{id : item.id}}" class="btn btn-warning btn-sm">
+          Editar
+          
         </router-link>
+        <button class="btn btn-danger btn-sm ml-4" @click="eliminarTarea(item.id)">Eliminar</button>
+        </div>
+       
       </li>
     </ul>
   </div>
@@ -26,7 +32,7 @@ export default {
     this.getTareas();
   },
   methods: {
-    ...mapActions(["getTareas"]),
+    ...mapActions(["getTareas", "eliminarTarea"]),
   },
   computed: {
     ...mapState(["tareas"]),

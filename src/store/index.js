@@ -12,7 +12,10 @@ export default new Vuex.Store({
   state: {
     //cramos un array vacio para llenarlo con el action 
     tareas: [],
-    tarea : { nombre : '' , id : ''}
+    tarea: {
+      nombre: '',
+      id: ''
+    }
   },
   //los que modifican el state
   mutations: {
@@ -21,6 +24,10 @@ export default new Vuex.Store({
     },
     setTarea(state, payload) {
       state.tarea = payload;
+    },
+    setEliminarTarea(state, payload) {
+      const filtrarTarea = state.tareas.filter(item => item.id !== payload);
+      state.tareas = filtrarTarea;
     }
   },
   // consulta a la bd
@@ -43,32 +50,56 @@ export default new Vuex.Store({
           commit('setTareas', tareas)
         })
     },
-   getTarea({commit}, idTarea){
-     db.collection('tareas').doc(idTarea).get()
-     .then(doc => {
-       console.log(doc.id)
-       console.log(doc.data())
-       let tarea = doc.data()
-       tarea.id = doc.id
-       commit('setTarea', tarea);
-     })
-   },
-   editarTarea ({commit}, tarea){
-     db.collection('tareas').doc(tarea.id).update({
-       nombre : tarea.nombre
-     })
-     .then(()=>{
-       console.log('tarea editada')
-       router.push('/inicio')
-     })
+    getTarea({
+      commit
+    }, idTarea) {
+      db.collection('tareas').doc(idTarea).get()
+        .then(doc => {
+          console.log(doc.id)
+          console.log(doc.data())
+          let tarea = doc.data()
+          tarea.id = doc.id
+          commit('setTarea', tarea);
+        })
+    },
+    editarTarea({
+      commit
+    }, tarea) {
+      db.collection('tareas').doc(tarea.id).update({
+          nombre: tarea.nombre
+        })
+        .then(() => {
+          console.log('tarea editada')
+          router.push('/inicio')
+        })
 
-   },
+    },
 
-   agregarTarea({commit} , tarea){
-     db.collection('tareas').add()
-   }
+    agregarTarea({
+      commit
+    }, tarea) {
+      db.collection('tareas').add({
+          nombre: tarea
+        })
+        .then(doc => {
+          console.log(doc.id);
+          router.push('/inicio');
+        })
+    },
 
-   
+    eliminarTarea({
+      commit,
+      dispatch
+    }, idTarea) {
+      db.collection('tareas').doc(idTarea).delete()
+        .then(() => {
+          console.log('tarea eliminada');
+          // dispatch(getTareas()); con este dispatch llamamos alguna funcion que tenemos creada
+          commit('setEliminarTarea', idTarea)
+        })
+    }
+
+
   },
 
   modules: {}
