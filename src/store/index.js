@@ -70,7 +70,7 @@ export default new Vuex.Store({
         })
         .then(() => {
           console.log('tarea editada')
-          router.push('/inicio')
+          router.push('/')
         })
 
     },
@@ -83,7 +83,7 @@ export default new Vuex.Store({
         })
         .then(doc => {
           console.log(doc.id);
-          router.push('/inicio');
+          router.push('/');
         })
     },
 
